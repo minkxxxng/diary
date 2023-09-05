@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<!--
+	Future Imperfect by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Single Diary</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../../../static/css/main.css" type="text/css" />
+	</head>
+	<body class="single is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="{% url 'index' %}">My Blog</a></h1>
+						<nav class="main">
+
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+
+						<form id="image-input" method="post" enctype="multipart/form-data" onchange="previewImage(event)">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <br>
+
+                            <img id="image-preview" src="#" alt="" style="max-height: 300px; width: auto" />
+
+                            <input type="submit" value="등록하기">
+                        </form>
+							</article>
+
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../../../static/js/jquery.min.js"></script>
+			<script src="../../../static/js/browser.min.js"></script>
+			<script src="../../../static/js/breakpoints.min.js"></script>
+			<script src="../../../static/js/util.js"></script>
+			<script src="../../../static/js/main.js"></script>
+    <!-- JavaScript 코드 추가 -->
+         <script>
+            // 이미지 미리보기를 위한 함수
+            function previewImage(event) {
+               var reader = new FileReader();
+               reader.onload = function () {
+                  var imagePreview = document.getElementById('image-preview');
+                  imagePreview.src = reader.result;
+                  imagePreview.style.display = 'block';
+               }
+               reader.readAsDataURL(event.target.files[0]);
+            }
+         </script>
+	</body>
+</html>

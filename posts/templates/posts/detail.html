@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<!--
+	Future Imperfect by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Single Diary</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../../../static/css/main.css" type="text/css" />
+	</head>
+	<body class="single is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="{% url 'index' %}">My Blog</a></h1>
+						<nav class="main">
+
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<article class="post">
+								<header>
+									<div class="title">
+										<a style="font-family: '{{ post.font_default }}', sans-serif; font-size: 45px;">
+                                        {{ post.title_text }}</a>
+										<p></p>
+									</div>
+									<div class="meta">
+										<time class="published" datetime="2015-11-01">{{ post.pub_date }}</time>
+<!--										<a href="#" class="author"><span class="name">Jane Doe</span><img src="images/avatar.jpg" alt="" /></a>-->
+									</div>
+								</header>
+								<div class="image featured">
+                                    {% if post.image %}
+                                        <img src="{{ post.image.url }}" alt="Post Image" style="max-height: 300px; width: auto;" />
+                                    {% endif %}
+                                </div>
+								<p>{{ post.content_text }}</p>
+<!--								<footer>-->
+<!--									<ul class="stats">-->
+<!--										<li><a href="#">General</a></li>-->
+<!--										<li><a href="#" class="icon solid fa-heart">28</a></li>-->
+<!--										<li><a href="#" class="icon solid fa-comment">128</a></li>-->
+<!--									</ul>-->
+<!--								</footer>-->
+							</article>
+
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../../../static/js/jquery.min.js"></script>
+			<script src="../../../static/js/browser.min.js"></script>
+			<script src="../../../static/js/breakpoints.min.js"></script>
+			<script src="../../../static/js/util.js"></script>
+			<script src="../../../static/js/main.js"></script>
+
+	</body>
+</html>

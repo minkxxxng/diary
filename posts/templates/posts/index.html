@@ -1,0 +1,209 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Diary</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../../../static/css/main.css" type="text/css" />
+        <style>
+        .blog-list {
+            list-style: none; /* 불릿 제거 */
+            padding-left: 0; /* 왼쪽 여백 제거 */
+        }
+
+        .blog-item {
+            margin-bottom: 20px; /* 각 항목 사이의 간격 설정 */
+        }
+
+        .blog-title {
+            text-decoration: none; /* 링크에 밑줄 제거 */
+            color: #333; /* 제목 글자 색상 */
+        }
+
+        .blog-date {
+            margin-left: 10px; /* 제목과 날짜 사이의 간격 설정 */
+            color: #888; /* 날짜 글자 색상 */
+        }
+        /* 선택된 버튼에 스타일 적용 */
+         .font-button.selected {
+                color: darkblue; /* 선택된 버튼의 글자색 변경 */
+                font-weight: bold; /* 선택된 버튼의 글꼴 두께 변경 */
+            }
+
+        </style>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="{% url 'index' %}">My Blog</a></h1>
+                        <h1><a href="{% url 'create' %}">New Blog</a></h1>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+                        {% if post_list %}
+                        {% for post in post_list %}
+						<!-- Post -->
+							<article class="post">
+								<header>
+									<div class="title">
+                                        <a id="post-title-{{ post.id }}" style="font-family: '{{ post.font_default }}', sans-serif; font-size: 40px;">
+                                            {{ post.title_text }}</a>
+
+									</div>
+									<div class="meta">
+										<time class="published" datetime="2015-11-01">{{ post.pub_date }}</time>
+                                        <a style="font-size: 10px">현재 폰트: {{ post.font_default }} </a>
+<!--										<a href="#" class="author"><span class="name">Jane Doe</span><img src="images/avatar.jpg" alt="" /></a>-->
+									</div>
+								</header>
+{#								<a href="" class="image featured"><img src="" alt="" />이미지(백엔드)</a>#}
+{#<!--								<p></p>-->#}
+                            {% if post.image %}
+                                <div class="image featured">
+                                        <img src="{{ post.image.url }}" alt="Post Image" style="max-height: 200px; width: auto; margin: auto;" ;/>
+                                </div>
+                             {% endif %}
+								<footer>
+									<ul class="actions">
+										<li><a href="{% url 'detail' post.id %}" class="button large">Full Blog</a></li>
+									</ul>
+									<ul class="stats">
+                                        <li><a href="javascript:void(0)" class="icon solid fa-heart font-button" data-fontname="{{ post.font_name }}">⭕</a>
+                                        <a href="javascript:void(0)" class="icon solid fa-heart font-button" data-fontname="{{ post.font_name_image }}">⭕</a>
+                                        <a href="javascript:void(0)" class="icon solid fa-heart font-button" data-fontname="{{ post.font_name2 }}">⭕</a>
+                                        <a href="javascript:void(0)" class="icon solid fa-heart font-button" data-fontname="{{ post.font_name_image2 }}">⭕</a>
+                                        <a href="javascript:void(0)" class="icon solid fa-heart font-button" data-fontname="{{ post.font_name3 }}">⭕</a></li>
+                                        <li><a href="{% url 'update' post.id %}" class="icon solid fa-heart">Edit</a></li>
+                                        <li><a href="{% url 'delete' post.id %}" class="icon solid fa-comment">Delete</a></li>
+                                    </ul>
+								</footer>
+                            </article>
+                        {% endfor %}
+                        {% else %}
+                            <p>No posts are available.</p>
+                        {% endif %}
+
+						<!-- Pagination -->
+{#							<ul class="actions pagination">#}
+{#								<li><a href="" class="disabled button large previous">Previous Page</a></li>#}
+{#								<li><a href="#" class="button large next">Next Page</a></li>#}
+{#							</ul>#}
+
+					</div>
+
+				<!-- Sidebar -->
+					<section id="sidebar">
+
+						<!-- Intro -->
+							<section id="intro">
+								<a href="#" class="logo"><img src="../../../static/images/logo.jpg" alt="" /></a>
+								<header>
+									<h2>Welcome To Font Diary!</h2>
+									<p>This is SMWU IT Engineering Font Recommendation Diary❤️</p>
+								</header>
+							</section>
+
+						<!-- About -->
+							<section class="blurb">
+								<h2>About</h2>
+								<p>안녕하세요, 저희는 일기장을 분석해서 일기장의 감정과 유사한 폰트를 추천해주는 기능을 주제로 졸업 프로젝트를 진행중인 숙명여자대학교 IT공학전공 박세연, 정다은, 전은결입니다.
+                                    <br>일기장을 사용해보시고, 피드백이 있을 경우 하단의 설문조사 링크에 남겨주세요!</p>
+								<ul class="actions">
+									<li><a href="#" class="button">설문조사 링크</a></li>
+								</ul>
+							</section>
+                        {% if post_list %}
+                        <ul class="blog-list">
+                            {% for post in post_list %}
+                            <li class="blog-item">
+                                <a class="blog-title" style="font-family: '{{ post.font_default }}', sans-serif; font-size: 20px;" href="{% url 'detail' post.id %}">
+                                    {{ post.title_text }}
+                                </a>
+                                <span class="blog-date">{{ post.pub_date }}</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <p>No posts are available.</p>
+                        {% endif %}
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../../../static/js/jquery.min.js"></script>
+			<script src="../../../static/js/browser.min.js"></script>
+			<script src="../../../static/js/breakpoints.min.js"></script>
+			<script src="../../../static/js/util.js"></script>
+			<script src="../../../static/js/main.js"></script>
+
+
+
+<script>
+    const fontButtons = document.querySelectorAll('.font-button');
+    fontButtons.forEach(button => {
+        button.addEventListener('click', toggleFont);
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+        fontButtons.forEach(button => {
+            const postId = button.closest('.post').querySelector('.title a').getAttribute('id');
+            const fontName = localStorage.getItem(postId); // 로컬 스토리지에서 데이터 가져오기
+            if (fontName === button.getAttribute('data-fontname')) {
+                button.classList.add('selected');
+                button.textContent = '✔️'; // 선택된 버튼의 텍스트를 ✔️로 변경
+            }
+        });
+    });
+
+    function toggleFont(event) {
+        const button = event.target;
+        const fontName = button.getAttribute('data-fontname');
+        const postId = button.closest('.post').querySelector('.title a').getAttribute('id');
+
+        const postTitle = document.getElementById(postId);
+
+        const postIdInt = parseInt(postId.split('-')[2]);
+        saveFontToServer(postIdInt, fontName);
+
+        localStorage.setItem(postId, fontName); // 로컬 스토리지에 데이터 저장
+
+        fontButtons.forEach(btn => {
+            btn.classList.remove('selected');
+            btn.textContent = '⭕'; // 모든 버튼의 텍스트를 ⭕로 초기화
+        });
+        button.classList.add('selected');
+        button.textContent = '✔️'; // 선택된 버튼의 텍스트를 ✔️로 변경
+
+        postTitle.style.fontFamily = `'${fontName}', sans-serif`;
+    }
+
+    function saveFontToServer(postId, fontName) {
+        fetch(`/save_font/${postId}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': localStorage.getItem('csrftoken') // Using localStorage here
+            },
+            body: JSON.stringify({
+                font_name: fontName
+            })
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    // 쿠키 가져오는 함수 대신 사용하지 않음
+</script>
+	</body>
+</html>
+
